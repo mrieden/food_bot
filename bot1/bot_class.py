@@ -33,12 +33,31 @@ class bot(webdriver.Chrome):
         # for item in items:
         #     print(item)
         self.save_as_csv(items)
-        
+
+    def report_pages(self, page_number):
+        items = []
+
+        for i in range(page_number):
+            elements = self.find_elements(By.CLASS_NAME, 'list_product_a')
+            for item in elements:
+                arr = []
+                alts = item.find_elements(By.CLASS_NAME, "list_product_icons")
+                arr.append(item.text)
+                for alt in alts :
+                    arr.append(alt.get_attribute('alt'))
+                items.append(item_module(arr))
+            self.find_element(By.CSS_SELECTOR, 'a[rel="next$nofollow"]').click()
+        self.save_as_csv(items)
+            
+
+
     def save_as_csv(self,items):
         file_url = constans.save_file_url
         data = [item.to_dict() for item in items]
         df = pd.DataFrame(data)
         df.to_csv(file_url, index=False)
+
+    
 
 
 
