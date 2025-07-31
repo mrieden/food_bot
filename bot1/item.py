@@ -1,7 +1,7 @@
 class item:
     def __init__(self,arr):
-        self.name = arr[0].split(' – ')[0].strip()
-        self.weights = arr[0].split(' – ')[-1].strip()
+        self.name = arr[0].split('–')[0].strip()
+        self.weights = arr[0].split('–')[-1].strip()
         self.nutrition_Score = arr[1].strip()
         self.Processing_type = arr[2].strip()
         self.green_score = arr[3].strip()
